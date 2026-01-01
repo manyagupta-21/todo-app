@@ -43,23 +43,25 @@ function App() {
 
   // 🔹 TOGGLE TODO (PUT / PATCH)
   const toggleTodo = async (id) => {
-    const todo = todos.find((t) => t.id === id);
+  const todo = todos.find((t) => t.id === id);
 
-    const res = await fetch(`${API_URL}${id}/`, {
-      method: "PUT", // or PATCH depending on backend
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...todo,
-        completed: !todo.completed,
-      }),
-    });
+  const res = await fetch(`${API_URL}${id}/`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      completed: !todo.completed,
+    }),
+  });
 
-    const updatedTodo = await res.json();
+  const updatedTodo = await res.json();
 
-    setTodos(
-      todos.map((t) => (t.id === id ? updatedTodo : t))
-    );
-  };
+  setTodos(
+    todos.map((t) =>
+      t.id === id ? updatedTodo : t
+    )
+  );
+};
+
 
   return (
     <div className="background">
